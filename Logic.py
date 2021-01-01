@@ -13,7 +13,9 @@ def load(fname):
 	global d
 	global fileName
 	if len(fname) != 0:
-		fileName = fname	
+		fileName = fname
+		if not fileName.endswith(".json"):
+			fileName = fileName+".json"	
 		if os.path.exists(fileName):
 			with open(fileName, 'r') as f:
 				d = json.load(f)
