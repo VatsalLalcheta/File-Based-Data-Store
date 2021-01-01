@@ -15,7 +15,9 @@ def load(fname):
 	if len(fname) != 0:
 		fileName = fname
 		if not fileName.endswith(".json"):
-			fileName = fileName+".json"	
+			fileName = fileName+".json"
+		
+		
 		if os.path.exists(fileName):
 			with open(fileName, 'r') as f:
 				d = json.load(f)
@@ -35,16 +37,20 @@ def read(key):
 		print(key +" does not exist in database.") 
 	else:
 		load(fileName)
+		
 		b=d[key]
 		if b[1]!=0:
 			if time.time()<b[1]: 
 				stri=str(key)+":"+str(b[0])
 				print( stri )
+				return stri
 			else:
 				print(key," has been expired")
+				return (key+" has been expired")
 		else:
 			stri=str(key)+":"+str(b[0])
 			print( stri )
+			return stri
 			
 			
 def create(key,value,timeout=0):
@@ -75,6 +81,7 @@ def delete(key):
 	global fileName
 	if key not in d:
 		print(key +" does not exist in database.") 
+		return(key +" does not exist in database.")
 	else:
 		b=d[key]
 		if b[1]!=0:
@@ -83,12 +90,16 @@ def delete(key):
 				with open(fileName, 'w') as f:
 					json.dump(d, f)
 				print("key is successfully deleted")
+				
 				load(fileName)
+				return ("key is successfully deleted")
 			else:
-				print(key,"has been expired") 
+				print(key,"has been expired")
+				return (key,"has been expired")
 		else:
 			d.pop(key)
 			with open(fileName, 'w') as f:
 				json.dump(d, f)	
 			load(fileName)
 			print("key is successfully deleted")
+			return ("key is successfully deleted")
