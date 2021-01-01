@@ -6,7 +6,7 @@ import json
 
 
 d={}
-fileName = "default.json"
+fileName = "Default.json"
 
 
 def load(fname):
